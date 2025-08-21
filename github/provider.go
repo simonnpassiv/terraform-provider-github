@@ -90,7 +90,7 @@ func Provider() *schema.Provider {
 			"parallel_requests": {
 				Type:        schema.TypeBool,
 				Optional:    true,
-				Default:     false,
+				Default:     true,
 				Description: descriptions["parallel_requests"],
 			},
 			"app_auth": {
@@ -427,9 +427,6 @@ func providerConfigure(p *schema.Provider) schema.ConfigureContextFunc {
 
 		parallelRequests := d.Get("parallel_requests").(bool)
 
-		if parallelRequests && isGithubDotCom {
-			return nil, wrapErrors([]error{fmt.Errorf("parallel_requests cannot be true when connecting to public github")})
-		}
 		log.Printf("[DEBUG] Setting parallel_requests to %t", parallelRequests)
 
 		config := Config{
