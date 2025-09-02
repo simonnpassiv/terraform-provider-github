@@ -18,19 +18,16 @@ jobs:
         with:
           fetch-depth: 0  # Required for proper branch comparison
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+      - uses: diillson/auto-pull-request@v1.0.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Auto-created PR from ${{ github.ref_name }}"
-          title: "Auto PR: ${{ github.ref_name }}"
-          body: |
+          destination_branch: "main"                      # If blank, default: master
+          pr_title: "Pulling ${{ github.ref }} into main" # Title of pull request
+          pr_body: |
             Automated pull request created from push to ${{ github.ref_name }}
             
             Branch: ${{ github.ref_name }}
             Triggered by: ${{ github.actor }}
-          branch: ${{ github.ref_name }}
-          base: main
-          labels: |
-            automated-pr
-            needs-review
+          pr_reviewer: "diillson,worker"                         # Comma-separated list (no spaces)
+          pr_assignee: "diillson,worker"                         # Comma-separated list (no spaces)
+          pr_label: "automated-pr,needs-review"                  # Comma-separated list (no spaces)
+          github_token: ${{ secrets.GITHUB_TOKEN }}      # If blank, default: secrets.GITHUB_TOKEN
