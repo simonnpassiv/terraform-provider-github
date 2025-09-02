@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required for proper branch comparison
 
       - uses: diillson/auto-pull-request@v1.0.1
         with:
@@ -27,7 +25,7 @@ jobs:
             
             Branch: ${{ github.ref_name }}
             Triggered by: ${{ github.actor }}
-          pr_reviewer: "diillson,worker"                         # Comma-separated list (no spaces)
-          pr_assignee: "diillson,worker"                         # Comma-separated list (no spaces)
+          pr_reviewer: "simonnpassiv"                         # Comma-separated list (no spaces)
+          pr_assignee: "simonnpassiv"                         # Comma-separated list (no spaces)
           pr_label: "automated-pr,needs-review"                  # Comma-separated list (no spaces)
           github_token: ${{ secrets.GITHUB_TOKEN }}      # If blank, default: secrets.GITHUB_TOKEN
